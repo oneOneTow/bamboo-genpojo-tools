@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.luzhiqing</groupId>
+    <artifactId>bamboo-genpojo-tools</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>com.luzhiqing</groupId>
+            <artifactId>bamboo-constants</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.10.8</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>3.10.8</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+            <version>3.10.8</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>3.10.8</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.30</version>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <jdbc>
+                        <driver>com.mysql.jdbc.Driver</driver>
+                        <url>jdbc:mysql://39.107.239.107:3306/dev</url>
+                        <username>root</username>
+                        <password>7416kobe!</password>
+                    </jdbc>
+
+                    <generator>
+                        <database>
+                            <name>org.jooq.util.mysql.MySQLDatabase</name>
+                            <includes>.*</includes>
+                            <inputSchema>dev</inputSchema>
+                            <forcedTypes>
+                                <forcedType>
+                                    <userType>com.luzhiqing.bamboo.constants.enums.ExpressCompanyType</userType>
+                                    <converter>com.luzhiqing.bamboo.constants.converter.ExpressCompayConverter</converter>
+                                    <expression>.*\.EXPRESS_COMPANY</expression>
+                                    <types>.*</types>
+                                </forcedType>
+                                <forcedType>
+                                    <userType>com.luzhiqing.bamboo.constants.enums.OrderType</userType>
+                                    <converter>com.luzhiqing.bamboo.constants.converter.OrderTypeConverter</converter>
+                                    <expression>.*\.ORDER_TYPE</expression>
+                                    <types>.*</types>
+                                </forcedType>
+                            </forcedTypes>
+                        </database>
+
+                        <generate>
+                            <daos>true</daos>
+                            <pojos>true</pojos>
+                            <javaTimeTypes>true</javaTimeTypes>
+                            <springAnnotations>false</springAnnotations>
+                        </generate>
+
+                        <target>
+                            <packageName>com.luzhiqing.bamboo.entity</packageName>
+                            <directory>src/main/java</directory>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+</project>
