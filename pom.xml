@@ -123,6 +123,20 @@
                             </forcedType>
                         </forcedTypes>
                     </database>
+                    <strategy>
+                        <matchers>
+                            <tables>
+                                <table>
+                                    <tableClass>
+                                        <transform>UPPER</transform>
+                                    </tableClass>
+                                    <pojoClass>
+
+                                    </pojoClass>
+                                </table>
+                            </tables>
+                        </matchers>
+                    </strategy>
 
                     <generate>
                         <!--<daos>true</daos>-->
