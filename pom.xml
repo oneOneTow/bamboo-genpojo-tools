@@ -79,7 +79,7 @@
             <configuration>
                 <jdbc>
                     <driver>com.mysql.jdbc.Driver</driver>
-                    <url>jdbc:mysql://39.107.239.107:3306/dev</url>
+                    <url>jdbc:mysql://39.107.239.107:3306/bamboo_auth</url>
                     <username>root</username>
                     <password>7416kobe!</password>
                 </jdbc>
@@ -89,11 +89,12 @@
                         <name>org.jooq.util.mysql.MySQLDatabase</name>
                         <includes>.*</includes>
                         <excludes>.*\.SCHEMA_VERSION</excludes>
-                        <inputSchema>dev</inputSchema>
+                        <excludes>.*\.FLYWAY_SCHEMA_HISTORY</excludes>
+                        <inputSchema>bamboo_auth</inputSchema>
                         <forcedTypes>
                             <forcedType>
                                 <userType>com.luzhiqing.bamboo.constants.enums.ExpressCompanyType</userType>
-                                <converter>com.luzhiqing.bamboo.constants.converter.ExpressCompanyConverter</converter>
+                                <converter>com.luzhiqing.bamboo.constants.converter.ExpressCompayConverter</converter>
                                 <expression>.*\.EXPRESS_COMPANY</expression>
                                 <types>.*</types>
                             </forcedType>
@@ -101,6 +102,23 @@
                                 <userType>com.luzhiqing.bamboo.constants.enums.OrderType</userType>
                                 <converter>com.luzhiqing.bamboo.constants.converter.OrderTypeConverter</converter>
                                 <expression>.*\.ORDER_TYPE</expression>
+                                <types>.*</types>
+                            </forcedType>
+                            <forcedType>
+                                <userType>com.luzhiqing.bamboo.constants.enums.GenderType</userType>
+                                <converter>com.luzhiqing.bamboo.constants.converter.GenderTypeConverter</converter>
+                                <expression>.*\.gender</expression>
+                                <types>.*</types>
+                            </forcedType>
+                            <forcedType>
+                                <userType>com.luzhiqing.bamboo.constants.enums.AccountType</userType>
+                                <converter>com.luzhiqing.bamboo.constants.converter.AccountTypeConverter</converter>
+                                <expression>.*\.account_type</expression>
+                                <types>.*</types>
+                            </forcedType>
+                            <forcedType>
+                                <name>BOOLEAN</name>
+                                <expression>.*\.enabled</expression>
                                 <types>.*</types>
                             </forcedType>
                         </forcedTypes>
